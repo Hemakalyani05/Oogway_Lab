@@ -10,8 +10,8 @@ import { Citation, Artifact } from './types';
 import { fetchSessionDetail, fetchSessionArtifacts } from './services/api';
 
 export const App: React.FC = () => {
-  const [selectedProvider, setSelectedProvider] = useState<string>('mock');
-  const [selectedModelName, setSelectedModelName] = useState<string>('mock-demo-v1');
+  const [selectedProvider, setSelectedProvider] = useState<string>('ollama');
+  const [selectedModelName, setSelectedModelName] = useState<string>('llama3.2');
   const [activeCitation, setActiveCitation] = useState<Citation | null>(null);
   const [isArtifactOpen, setIsArtifactOpen] = useState<boolean>(false);
 

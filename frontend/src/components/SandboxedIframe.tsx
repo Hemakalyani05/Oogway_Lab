@@ -10,7 +10,7 @@ export const SandboxedIframe: React.FC<SandboxedIframeProps> = ({ content, title
   const sanitizedDoc = useMemo(() => {
     // Inject Content Security Policy and Tailwind CSS into srcDoc
     const cspMeta = `
-      <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src data: https: blob:; connect-src 'none'; frame-src 'none'; object-src 'none';">
+      <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src data: https: blob:; connect-src https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;; frame-src 'none'; object-src 'none';">
     `;
 
     // Ensure base HTML structure if user provided partial snippet
@@ -24,12 +24,34 @@ export const SandboxedIframe: React.FC<SandboxedIframeProps> = ({ content, title
           ${cspMeta}
           <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
           <style>
-            body { 
-              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-              margin: 0;
-              padding: 16px;
-            }
-          </style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 16px;
+    background: #ffffff;
+    color: #111111;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #111111;
+  }
+
+  p, label, span {
+    color: #333333;
+  }
+
+  input, textarea, select {
+    background: #ffffff;
+    color: #111111;
+    border: 1px solid #cccccc;
+    padding: 8px;
+    border-radius: 6px;
+  }
+
+  button {
+    color: #111111;
+  }
+</style>
         </head>
         <body class="bg-surface-900 text-surface-50 antialiased">
           ${content}
