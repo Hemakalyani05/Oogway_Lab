@@ -3,6 +3,12 @@ Comprehensive Backend Test Suite using standard library unittest and FastAPI Tes
 """
 import unittest
 import json
+import sys
+import os
+
+# Ensure backend root is in sys.path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from starlette.testclient import TestClient
 
 from app.main import app

@@ -2,6 +2,11 @@
 Tests for Ship 30 for 30 Content Generation Skill.
 """
 import unittest
+import sys
+import os
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from app.skills.ship30 import build_ship30_prompt, SHIP30_SYSTEM_PROMPT
 from app.skills.artifact_builder import ArtifactBuilder
 

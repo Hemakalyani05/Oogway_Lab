@@ -2,6 +2,11 @@
 Tests for Hybrid RAG Retrieval and Grounding Guardrails.
 """
 import unittest
+import sys
+import os
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from app.rag.ingest import load_and_index_transcripts
 from app.rag.hybrid_retriever import hybrid_retriever
 from app.skills.grounding_guard import GroundingGuard
