@@ -1,4 +1,11 @@
 # 🚀 The Lenny Growth Assistant
+## 🚀 Deployment
+
+| Component | URL |
+|---|---|
+| Frontend | https://lenny-growth-assistant-frontend.onrender.com/ |
+| Backend API | https://lenny-growth-assistant-9vq2.onrender.com |
+| API Documentation | https://lenny-growth-assistant-9vq2.onrender.com/docs |
 > **A Production-Grade Full-Stack AI Product Assistant Grounded in Lenny's Podcast Transcripts**  
 > *Built as a Forward Deployed Engineering assignment with multi-model local/cloud inference, high-precision Hybrid RAG, Ship 30 for 30 atomic essay generation, and a Claude-style sandboxed artifact viewer.*
 
