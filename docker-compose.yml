@@ -1,0 +1,69 @@
+services:
+  # 1. PostgreSQL with pgvector for persistence & dense embeddings
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: lenny-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: lenny_assistant
+      POSTGRES_USER: lenny_user
+      POSTGRES_PASSWORD: lenny_password_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lenny_user -d lenny_assistant"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. Local Ollama LLM Container (Mandatory for Local Demo)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: lenny-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollamadata:/root/.ollama
+
+  # 3. FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: lenny-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://lenny_user:lenny_password_dev@postgres:5432/lenny_assistant
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_MODEL=llama3.2
+      - DEFAULT_PROVIDER=mock
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    volumes:
+      - ./backend/data/transcripts:/app/data/transcripts
+
+  # 4. React Frontend (Nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: lenny-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  ollamadata:
