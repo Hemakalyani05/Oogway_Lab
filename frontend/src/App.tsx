@@ -10,8 +10,12 @@ import { Citation, Artifact } from './types';
 import { fetchSessionDetail, fetchSessionArtifacts } from './services/api';
 
 export const App: React.FC = () => {
-  const [selectedProvider, setSelectedProvider] = useState<string>('ollama');
-  const [selectedModelName, setSelectedModelName] = useState<string>('llama3.2');
+ const defaultProvider = import.meta.env.VITE_DEFAULT_PROVIDER || 'ollama';
+const defaultModel =
+  defaultProvider === 'mock' ? 'lenny-grounded-mock-v1' : 'llama3.2';
+
+const [selectedProvider, setSelectedProvider] = useState<string>(defaultProvider);
+const [selectedModelName, setSelectedModelName] = useState<string>(defaultModel);
   const [activeCitation, setActiveCitation] = useState<Citation | null>(null);
   const [isArtifactOpen, setIsArtifactOpen] = useState<boolean>(false);
 
