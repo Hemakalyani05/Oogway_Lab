@@ -1,6 +1,7 @@
 # 🚀 The Lenny Growth Assistant
 ## 🚀 Deployment
-
+View Project :
+👉 [**Live Demo — The Lenny Growth Assistant**](https://lenny-growth-assistant-frontend.onrender.com/)
 | Component | URL |
 |---|---|
 | Frontend | https://lenny-growth-assistant-frontend.onrender.com/ |
